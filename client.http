@@ -11,8 +11,8 @@ POST http://localhost:3000/login
 Content-Type: application/json
  
 {
-    "username": "ayu",
-    "password": "12346"
+    "username": "ahmad",
+    "password": "12345"
 }
 
 ###
@@ -21,9 +21,9 @@ POST  http://localhost:3000/register
 Content-Type: application/json
 
 {
-    "username" : "ayu",
-    "password" : "12346",
-    "name"     : "ayuuu",
-    "email"    : "ayu123@gmail.com"
+    "username" : "ahmad",
+    "password" : "12345",
+    "name"     : "ahmad",
+    "email"    : "ahmadddd@gmail.com"
 
 }

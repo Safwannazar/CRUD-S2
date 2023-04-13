@@ -32,15 +32,16 @@ app.post('/login', (req, res) => {
 
   let result = login(req.body.username,req.body.password)
 
-  res.send(result)
+  let Token = generateToken(result)
+  res.send(Token)
 })
 
 app.get('/test', (req, res) => {
   res.send('A B C D F G H I J K L M N O P Q R S T U V W X Y Z')
 })
 
-app.get('/bye', (req, res) => {
-    res.send('BYE UTEM')
+app.get('/bye',verifyToken,(req, res) =>{
+    res.send('SELAMAT MALAM AIR MATA')
   })
 
 app.post('/register', (req, res) => {
@@ -92,9 +93,38 @@ function register(reqUsername, reqpassword, reqname,reqemail)
     )
 }
 
+const jwt = require('jsonwebtoken')
+function generateToken(userData)
+{
+  const Token = jwt.sign
+  (
+    userData,'inipassword',
+    {expiresIn: 60 }
+  );
+  return Token
+}
 
 //try to log in
 console.log(login ("Safwan","safwan14"))
 
 register("alibaba","1234","alisepet","alisepet@gmail.com")
 console.log(login ("alibaba","1234"))
+
+function verifyToken(req, res, next)
+{
+  let header = req.headers.authorization
+  console.log(header)
+
+  let token = header.split('')[1]
+
+  jwt.verify(token,'inipassword',function(err,decoded)
+  {
+    if(err)
+    {
+      res.send('invalid Token')
+
+    }
+    req.user = decoded
+    next()
+  });
+  }
